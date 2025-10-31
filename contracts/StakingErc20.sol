@@ -6,6 +6,11 @@ import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
 
 contract Staking is ReentrancyGuard {
     IERC20 public stakingToken;
+    
+    uint256 public constant ROI_BASIS_POINTS = 100; // 1% = 100 basis points
+    uint256 public constant REFERRAL_BASIS_POINTS = 50; // 0.5% = 50 basis points
+    uint256 public constant BASIS_POINTS_DIVISOR = 10000;
+    uint256 public constant CLAIM_INTERVAL = 1 days;
 
     struct StakeInfo {
         uint256 amount; // principal
@@ -58,7 +63,7 @@ contract Staking is ReentrancyGuard {
                 // @dev 0.5% referral reward (50 basis points)
                 // @user 0.5% of the referee’s deposit paid immediately to the referrer.
 
-                uint256 reward = (amount * 5) / 1000;
+                uint256 reward = (amount * REFERRAL_BASIS_POINTS) / BASIS_POINTS_DIVISOR;
                 if (
                     reward > 0 &&
                     stakingToken.balanceOf(address(this)) >= reward
@@ -91,4 +96,20 @@ contract Staking is ReentrancyGuard {
     }
 
 
+    /// @notice 💰 Claim ROI (1% every 24h)
+    function claim() external nonReentrant {
+        StakeInfo storage s = stakes[msg.sender];
+        require(s.amount > 0, "no active stake");
+        require(block.timestamp >= s.lastClaimAt + CLAIM_INTERVAL, "claim too soon");
+
+        // 1% of staked principal using bps for better precision
+        uint256 reward = (s.amount * ROI_BASIS_POINTS) / BASIS_POINTS_DIVISOR;
+        require(stakingToken.balanceOf(address(this)) >= reward, "insufficient reward pool");
+
+        // update state BEFORE transfer (safety)
+        s.lastClaimAt = block.timestamp;
+
+        stakingToken.transfer(msg.sender, reward);
+        emit Claimed(msg.sender, reward);
+    }
 }
