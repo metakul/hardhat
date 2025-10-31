@@ -3,8 +3,9 @@ pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
 import "@openzeppelin/contracts/utils/ReentrancyGuard.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract Staking is ReentrancyGuard {
+contract Staking is ReentrancyGuard, Ownable {
     IERC20 public stakingToken;
     
     uint256 public constant ROI_BASIS_POINTS = 100; // 1% = 100 basis points
@@ -35,8 +36,9 @@ contract Staking is ReentrancyGuard {
     );
     event Withdrawn(address indexed user, uint256 amount);
     event Claimed(address indexed user, uint256 reward);
+    event TokensRecovered(address indexed token, uint256 amount);
 
-    constructor(IERC20 _token) {
+    constructor(IERC20 _token) Ownable(msg.sender) {
         stakingToken = _token;
     }
 
@@ -111,5 +113,14 @@ contract Staking is ReentrancyGuard {
 
         stakingToken.transfer(msg.sender, reward);
         emit Claimed(msg.sender, reward);
+    }
+
+    /// @notice 🚨 Recover tokens accidentally sent to this contract (except staking token)
+    function recoverTokens(address tokenAddress, uint256 amount) external onlyOwner nonReentrant {
+        require(tokenAddress != address(stakingToken), "cannot recover staking token");
+        require(amount > 0, "invalid amount");
+
+        IERC20(tokenAddress).transfer(owner(), amount);
+        emit TokensRecovered(tokenAddress, amount);
     }
 }
