@@ -42,6 +42,12 @@ const config: HardhatUserConfig = {
       url: configVariable("POLYGON_RPC_URL"), // e.g. Alchemy/Infura endpoint
       accounts: [configVariable("PRIVATE_KEY")],
     },
+    amoy: {
+      type: "http",
+      chainType: "l1",
+      url: configVariable("AMOY_RPC_URL"), // e.g. Alchemy/Infura endpoint
+      accounts: [configVariable("PRIVATE_KEY")],
+    },
   },
 };
 
