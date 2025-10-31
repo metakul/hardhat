@@ -47,11 +47,12 @@ Use default constructuor arguments and build profile for verification (Using v2)
 
 For token:
 ```bash
-npx hardhat verify --network amoy --build-profile default 0x3370A03BF676B153e2F74F78cce47A268fd5cee8 "MetaCoin" "MTC" 1000000000000000000000000
+npx hardhat verify --network amoy --build-profile default <ContractAddress> "MetaCoin" "MTC" 1000000000000000000000000
 ```
+
 For staking:
 ```bash
-npx hardhat verify --network amoy --build-profile default 0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df 0x3370A03BF676B153e2F74F78cce47A268fd5cee8
+npx hardhat verify --network amoy --build-profile default <ContractAddress> 0x3370A03BF676B153e2F74F78cce47A268fd5cee8
 ```
 
 ### Running Tests
@@ -82,3 +83,15 @@ https://amoy.polygonscan.com/address/0x3370A03BF676B153e2F74F78cce47A268fd5cee8
 
 ### Staking Deployment
 https://amoy.polygonscan.com/address/0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df
+
+
+## Running with frontend
+ open dir web
+ ```bash
+ cd web
+ ```
+
+Update env with contract address:
+```
+
+```
