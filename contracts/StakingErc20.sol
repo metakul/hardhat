@@ -28,6 +28,7 @@ contract Staking is ReentrancyGuard {
         address indexed user,
         uint256 reward
     );
+    event Withdrawn(address indexed user, uint256 amount);
 
     constructor(IERC20 _token) {
         stakingToken = _token;
@@ -53,7 +54,9 @@ contract Staking is ReentrancyGuard {
             if (referrer != address(0) && referrer != msg.sender) {
                 referrers[msg.sender] = referrer;
 
-                // 0.5% referral reward (50 basis points)
+                // @dev 0.5% referral reward (50 basis points)
+                // @user 0.5% of the referee’s deposit paid immediately to the referrer.
+
                 uint256 reward = (amount * 5) / 1000;
                 if (
                     reward > 0 &&
@@ -71,4 +74,20 @@ contract Staking is ReentrancyGuard {
 
         emit Deposited(msg.sender, amount, referrer);
     }
+
+    /// @notice Withdraw your staked amount (no rewards for will be claimed if withdrawn )
+    function withdraw(uint256 amount) external nonReentrant {
+        StakeInfo storage s = stakes[msg.sender];
+        require(s.amount >= amount && amount > 0, "invalid amount");
+
+        // ✅ First update the state
+        s.amount -= amount;
+
+        // ✅ Then transfer tokens (safe order)
+        stakingToken.transfer(msg.sender, amount);
+
+        emit Withdrawn(msg.sender, amount);
+    }
+
+
 }
