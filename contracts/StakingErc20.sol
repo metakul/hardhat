@@ -29,6 +29,7 @@ contract Staking is ReentrancyGuard {
         uint256 reward
     );
     event Withdrawn(address indexed user, uint256 amount);
+    event Claimed(address indexed user, uint256 reward);
 
     constructor(IERC20 _token) {
         stakingToken = _token;
