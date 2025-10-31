@@ -41,6 +41,19 @@ npx hardhat run scripts/index.ts --network polygon
 npx hardhat run scripts/index.ts --network amoy
 ```
 
+## verifying contract
+
+Use default constructuor arguments and build profile for verification (Using v2)
+
+For token:
+```bash
+npx hardhat verify --network amoy --build-profile default 0x3370A03BF676B153e2F74F78cce47A268fd5cee8 "MetaCoin" "MTC" 1000000000000000000000000
+```
+For staking:
+```bash
+npx hardhat verify --network amoy --build-profile default 0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df 0x3370A03BF676B153e2F74F78cce47A268fd5cee8
+```
+
 ### Running Tests
 
 To run all the tests in the project, execute the following command:
