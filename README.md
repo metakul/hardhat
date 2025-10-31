@@ -1,19 +1,13 @@
-# Sample Hardhat 3 Beta Project (`mocha` and `ethers`)
-
-This project showcases a Hardhat 3 Beta project using `mocha` for tests and the `ethers` library for Ethereum interactions.
-
-To learn more about the Hardhat 3 Beta, please visit the [Getting Started guide](https://hardhat.org/docs/getting-started#getting-started-with-hardhat-3). To share your feedback, join our [Hardhat 3 Beta](https://hardhat.org/hardhat3-beta-telegram-group) Telegram group or [open an issue](https://github.com/NomicFoundation/hardhat/issues/new) in our GitHub issue tracker.
-
 ## Project Overview
 
 This example project includes:
 
-- A simple Hardhat configuration file.
-- Foundry-compatible Solidity unit tests.
-- TypeScript integration tests using `mocha` and ethers.js
-- Examples demonstrating how to connect to different types of networks, including locally simulating OP mainnet.
-
-## Usage
+- ✅ A TypeScript Hardhat configuration file.
+- ✅ ERC20 token contract (MyToken.sol).
+- ✅ Staking contract (Staking.sol) with reward logic.
+- ✅ TypeScript unit tests using mocha, chai, and ethers.js.
+- ✅ Deployment scripts for local devnet and Sepolia testnet.
+- ✅ Example .env configuration for private keys and RPC URLs.
 
 ### Running Tests
 
@@ -29,8 +23,13 @@ You can also selectively run the Solidity or `mocha` tests:
 npx hardhat test solidity
 npx hardhat test mocha
 ```
+You can also selectively run a single test file:
+```
+npx hardhat test test/MyToken.ts
 
-### Make a deployment to Sepolia
+```
+
+### Make a deployment to Local chain
 
 This project includes an example Ignition module to deploy the contract. You can deploy this module to a locally simulated chain or to Sepolia.
 
@@ -39,6 +38,11 @@ To run the deployment to a local chain:
 ```shell
 npx hardhat ignition deploy ignition/modules/Counter.ts
 ```
+To deploy ERC20
+```shell
+npx hardhat ignition deploy ignition/modules/deployErc20.ts
+```
+### Make a deployment to Sepolia
 
 To run the deployment to Sepolia, you need an account with funds to send the transaction. The provided Hardhat configuration includes a Configuration Variable called `SEPOLIA_PRIVATE_KEY`, which you can use to set the private key of the account you want to use.
 
@@ -55,3 +59,11 @@ After setting the variable, you can run the deployment with the Sepolia network:
 ```shell
 npx hardhat ignition deploy --network sepolia ignition/modules/Counter.ts
 ```
+
+
+## For test:
+
+### ERC20 Deployment:
+https://polygonscan.com/token/0x6A74DB6b1bc1a348DEE98d8A4352AEA1906A3508
+
+### Staking Deployment
