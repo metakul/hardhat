@@ -1,3 +1,15 @@
+## 💎 ERC20 + Staking DApp:
+
+### 🪙 ERC20 Deployment  
+[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0x3370A03BF676B153e2F74F78cce47A268fd5cee8)
+
+### 📦 Staking Deployment  
+[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df)
+
+### 🌐 Live Website  
+[https://metakul.github.io/hardhat/](https://metakul.github.io/hardhat/)
+
+
 ## Project Overview
 
 This example project includes:
@@ -75,18 +87,6 @@ You can also selectively run a single test file:
 npx hardhat test test/MyToken.ts
 
 ```
-
-## For test 💎 ERC20 + Staking DApp:
-
-### 🪙 ERC20 Deployment  
-[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0x3370A03BF676B153e2F74F78cce47A268fd5cee8)
-
-### 📦 Staking Deployment  
-[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df)
-
-### 🌐 Live Website  
-[https://metakul.github.io/hardhat/](https://metakul.github.io/hardhat/)
-
 
 ## Running with frontend
  - open dir web
