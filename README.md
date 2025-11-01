@@ -76,22 +76,35 @@ npx hardhat test test/MyToken.ts
 
 ```
 
-## For test:
+## For test 💎 ERC20 + Staking DApp:
 
-### ERC20 Deployment:
-https://amoy.polygonscan.com/address/0x3370A03BF676B153e2F74F78cce47A268fd5cee8
+### 🪙 ERC20 Deployment  
+[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0x3370A03BF676B153e2F74F78cce47A268fd5cee8)
 
-### Staking Deployment
-https://amoy.polygonscan.com/address/0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df
+### 📦 Staking Deployment  
+[View on Polygonscan (Amoy)](https://amoy.polygonscan.com/address/0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df)
+
+### 🌐 Live Website  
+[https://metakul.github.io/hardhat/](https://metakul.github.io/hardhat/)
 
 
 ## Running with frontend
- open dir web
+ - open dir web
  ```bash
  cd web
  ```
 
-Update env with contract address:
+- Update env with contract address:
+
+```
+VITE_TOKEN_ADDRESS=0x3370A03BF676B153e2F74F78cce47A268fd5cee8
+VITE_STAKING_ADDRESS=0xcB998fb442a0475B2B59909cf9b1Afc0dD1Fa7df
+VITE_PUBLIC_THIRDWEB_CLIENT_ID=
+
 ```
 
+- Start server
+
+```bash
+npm run dev
 ```
