@@ -43,6 +43,11 @@ export default function App() {
       params: [account?.address || "0x", config.stakeContractAddress],
     });
 
+  // Helper to refresh all balances
+  const refreshBalances = async () => {
+    await Promise.all([refetchBalance(), refetchAllowance()]);
+  };
+
   // ✅ Approve
   const handleApprove = async (amountInWei: bigint): Promise<void> => {
     try {
@@ -59,8 +64,8 @@ export default function App() {
       await sendTransaction(approveTx);
       setSuccess("✅ Approval successful!");
 
-      await new Promise((resolve) => setTimeout(resolve, 5000));
-      await refetchAllowance();
+      await new Promise((r) => setTimeout(r, 4000));
+      await refreshBalances();
     } catch (error: any) {
       setError("Approval failed: " + (error?.message || "Please try again."));
     } finally {
@@ -105,11 +110,12 @@ export default function App() {
 
       await sendTransaction(stakeTx);
       setSuccess("✅ Staking successful!");
+      await new Promise((r) => setTimeout(r, 4000));
+      await refreshBalances();
     } catch (error: any) {
       setError("Staking failed: " + (error?.data?.message || error?.message));
     } finally {
       setIsStaking(false);
-      refetchBalance();
     }
   };
 
@@ -145,11 +151,12 @@ export default function App() {
 
       await sendTransaction(withdrawTx);
       setSuccess("🎉 Withdraw successful!");
+      await new Promise((r) => setTimeout(r, 4000));
+      await refreshBalances();
     } catch (error: any) {
       setError("Withdraw failed: " + (error?.data?.message || error?.message));
     } finally {
       setIsWithdrawing(false);
-      refetchBalance();
     }
   };
 
@@ -226,8 +233,10 @@ export default function App() {
             });
             return tx;
           }}
-          onTransactionConfirmed={() => {
+          onTransactionConfirmed={async () => {
             setSuccess("🎉 Claim successful!");
+            await new Promise((r) => setTimeout(r, 4000));
+            await refreshBalances();
           }}
           onError={(error) => {
             const message =
